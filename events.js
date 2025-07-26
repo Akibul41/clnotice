@@ -2,9 +2,9 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/fireba
 import { getFirestore, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const app = initializeApp({
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID"
+  apiKey: "AIzaSyCjs4mIH44AIWUZoFjSPbfkZ9gaTx4xYFE",
+  authDomain: "college-notice-cd622.firebaseapp.com",
+  projectId: "college-notice-cd622"
 });
 
 const db = getFirestore(app);
