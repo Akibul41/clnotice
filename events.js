@@ -1,27 +1,30 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+// events.js
+import { auth, db, ref, onAuthStateChanged, get, child } from './script.js';
 
-const app = initializeApp({
-  apiKey: "AIzaSyCjs4mIH44AIWUZoFjSPbfkZ9gaTx4xYFE",
-  authDomain: "college-notice-cd622.firebaseapp.com",
-  projectId: "college-notice-cd622"
-});
+const eventContainer = document.getElementById('event-list');
 
-const db = getFirestore(app);
-const eventList = document.getElementById("eventList");
-
-const q = query(collection(db, "events"), orderBy("timestamp", "desc"));
-
-onSnapshot(q, (snapshot) => {
-  eventList.innerHTML = "";
-  snapshot.forEach(doc => {
-    const e = doc.data();
-    eventList.innerHTML += `
-      <div class="event">
-        <h3>${e.title}</h3>
-        <p><strong>Date:</strong> ${e.date}</p>
-        <p>${e.details}</p>
-      </div>
-    `;
+onAuthStateChanged(auth, () => {
+  const eventsRef = ref(db, 'events/');
+  get(eventsRef).then((snapshot) => {
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      eventContainer.innerHTML = "";
+      Object.keys(data).reverse().forEach((key) => {
+        const event = data[key];
+        const div = document.createElement('div');
+        div.className = "event-card";
+        div.innerHTML = `
+          <h3>${event.title}</h3>
+          <p>${event.description}</p>
+          <small>${event.date}</small>
+        `;
+        eventContainer.appendChild(div);
+      });
+    } else {
+      eventContainer.innerHTML = "<p>No events yet.</p>";
+    }
+  }).catch((error) => {
+    console.error("Error loading events:", error);
+    eventContainer.innerHTML = "<p>Failed to load events.</p>";
   });
 });
