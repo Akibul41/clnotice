@@ -1,24 +1,40 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+// Firebase v12 compatible imports
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { getDatabase, ref, set, get, push, child } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
 
+// ✅ Your Firebase Config
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID"
+  apiKey: "AIzaSyCjs4mIH44AIWUZoFjSPbfkZ9gaTx4xYFE",
+  authDomain: "college-notice-cd622.firebaseapp.com",
+  projectId: "college-notice-cd622",
+  storageBucket: "college-notice-cd622.appspot.com",
+  messagingSenderId: "257074623269",
+  appId: "1:257074623269:web:8fa09ddd5885d09445a0cc",
+  measurementId: "G-9Y0PVLP70F",
+  databaseURL: "https://college-notice-cd622-default-rtdb.firebaseio.com"  // Add this line
 };
 
+// ✅ Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getDatabase(app);
 
-document.addEventListener('DOMContentLoaded', () => {
-  const btn = document.getElementById('loginBtn');
-  if (btn) {
-    btn.addEventListener('click', () => {
-      const email = document.getElementById('email').value;
-      const pass = document.getElementById('password').value;
-      signInWithEmailAndPassword(auth, email, pass)
-        .then(() => window.location.href = 'dashboard.html')
-        .catch(err => document.getElementById('loginError').textContent = err.message);
-    });
-  }
-});
+// ✅ Auth State Checker (used in multiple pages)
+export function checkAuth(callback) {
+  onAuthStateChanged(auth, (user) => {
+    callback(user);
+  });
+}
+
+// ✅ Logout Function
+export function logout() {
+  signOut(auth).then(() => {
+    window.location.href = "login.html";
+  }).catch((error) => {
+    console.error("Logout error:", error);
+  });
+}
+
+// ✅ Export Firebase instances for other scripts
+export { auth, db, ref, set, get, push, child };
