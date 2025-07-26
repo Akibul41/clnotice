@@ -1,36 +1,23 @@
-// login.js
-import { auth } from './script.js';
-import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { auth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from './script.js';
 
-// Login
-document.getElementById('login-form').addEventListener('submit', (e) => {
+const form = document.getElementById('auth-form');
+const signupBtn = document.getElementById('signup-btn');
+
+form.addEventListener('submit', (e) => {
   e.preventDefault();
-  const email = e.target.email.value;
-  const password = e.target.password.value;
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
 
   signInWithEmailAndPassword(auth, email, password)
-    .then(() => {
-      window.location.href = "dashboard.html";
-    })
-    .catch((error) => {
-      alert("Login failed: " + error.message);
-    });
+    .then(() => window.location.href = "dashboard.html")
+    .catch(error => alert("Login Error: " + error.message));
 });
 
-// Optional Signup (only for development/admin use)
-document.getElementById('signup-form')?.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const email = e.target.email.value;
-  const password = e.target.password.value;
+signupBtn.addEventListener('click', () => {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
 
   createUserWithEmailAndPassword(auth, email, password)
-    .then(() => {
-      alert("Signup successful. You can now log in.");
-    })
-    .catch((error) => {
-      alert("Signup failed: " + error.message);
-    });
+    .then(() => alert("Signup successful! Please login."))
+    .catch(error => alert("Signup Error: " + error.message));
 });

@@ -1,20 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard | Admin</title>
-  <link rel="stylesheet" href="style.css"/>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-  <script src="script.js" defer></script>
-  <script type="module" src="login.js"></script>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <h1>Admin Dashboard</h1>
-  <p>Only accessible to authenticated admins.</p>
-  <a href="notices.html">Manage Notices</a> |
-  <a href="events.html">Manage Events</a>
+  <button id="logout-btn">Logout</button>
+
+  <h2>Add Notice</h2>
+  <form id="notice-form">
+    <input type="text" name="title" placeholder="Notice Title" required />
+    <textarea name="description" placeholder="Notice Description" required></textarea>
+    <button type="submit">Post Notice</button>
+  </form>
+
+  <h2>Add Event</h2>
+  <form id="event-form">
+    <input type="text" name="title" placeholder="Event Title" required />
+    <textarea name="description" placeholder="Event Description" required></textarea>
+    <button type="submit">Post Event</button>
+  </form>
+
+  <script type="module" src="dashboard.js"></script>
 </body>
 </html>

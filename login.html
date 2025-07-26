@@ -2,20 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login - Admin</title>
-  <link rel="stylesheet" href="style.css">
-  <script type="module" src="script.js" defer></script>
-  <script type="module" src="login.js"></script>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <section class="form-container slide-up">
-    <h2>Admin Login</h2>
-    <input type="email" id="email" placeholder="Email" />
-    <input type="password" id="password" placeholder="Password" />
-    <button id="loginBtn">Login</button>
-    <p id="loginError" class="error-text"></p>
-  </section>
+  <h2>Login or Sign Up</h2>
+  <form id="auth-form">
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <button type="submit">Login</button>
+    <button type="button" id="signup-btn">Sign Up</button>
+  </form>
+  <script type="module" src="login.js"></script>
 </body>
 </html>
